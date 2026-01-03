@@ -6,12 +6,12 @@
   <title>Swap Tool</title>
   <style>
         body { 
-            font-family: 'Poppins', sans-serif; /* تغيير نوع الخط إلى Poppins */
+            font-family: 'Poppins', sans-serif; 
             margin: 0; 
             padding: 0; 
             background: linear-gradient(to right, #74ebd5, #ACB6E5); 
             color: #333; 
-            line-height: 1.6; /* زيادة التباعد بين الأسطر لتحسين القراءة */
+            line-height: 1.6; 
         }
     h2 {
       text-align: center;
@@ -781,7 +781,6 @@
 
     ["shift1", "shift2"].forEach(populateShifts);
 
-    // ✅ توحيد التاريخ بين الإيجنتين
     document.getElementById("date1").addEventListener("change", (e) => {
       document.getElementById("date2").value = e.target.value;
     });
@@ -789,7 +788,17 @@
       document.getElementById("date1").value = e.target.value;
     });
 
-    // ✅ تحويل التاريخ من 2025-10-05 إلى 5-10-2025
+    // ✅ الجزء الجديد: إضافة مستمع لزر Enter على كل الحقول
+    const inputFields = ["ccms1", "date1", "shift1", "ccms2", "date2", "shift2"];
+    inputFields.forEach(id => {
+      document.getElementById(id).addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // منع السلوك الافتراضي للمتصفح
+          generateTemplate();
+        }
+      });
+    });
+
     function formatDate(dateString) {
       if (!dateString) return "-";
       const [year, month, day] = dateString.split("-");
@@ -799,12 +808,21 @@
     function generateTemplate() {
       const ccms1 = document.getElementById("ccms1").value.trim();
       const ccms2 = document.getElementById("ccms2").value.trim();
-      const date = document.getElementById("date1").value; // نفس التاريخ للاثنين
+      const date = document.getElementById("date1").value; 
       const originalShift1 = document.getElementById("shift1").value;
       const originalShift2 = document.getElementById("shift2").value;
 
-      if (!agentsData[ccms1] || !agentsData[ccms2]) {
-        alert("Please enter valid CCMS numbers ❌.");
+      const isAgent1Valid = agentsData[ccms1];
+      const isAgent2Valid = agentsData[ccms2];
+
+      if (!isAgent1Valid && !isAgent2Valid) {
+        alert("Please enter valid CCMS numbers for both Agent 1 and Agent 2 ❌.");
+        return;
+      } else if (!isAgent1Valid) {
+        alert("Please enter a valid CCMS number for Agent 1 ❌.");
+        return;
+      } else if (!isAgent2Valid) {
+        alert("Please enter a valid CCMS number for Agent 2 ❌.");
         return;
       }
 
@@ -893,5 +911,3 @@
   </footer>
 </body>
 </html>
-
-
