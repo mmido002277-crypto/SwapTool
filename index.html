@@ -13,12 +13,25 @@
             color: #333; 
             line-height: 1.6; 
         }
-    h2 {
+
+    
+    .logo-container {
       text-align: center;
+      margin: 10px auto 10px auto;
+      width: 100%;       
+      max-width: 800px;  
+      height: 200px;     
     }
+    .logo-container svg {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px; /* شطرة خفيفة للحواف لتزيد من شياكة المستطيل */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
     .container {
       max-width: 950px;
-      margin: auto;
+      margin: 30px auto;
       background: white;
       padding: 20px;
       border-radius: 12px;
@@ -88,9 +101,18 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Swap Tool</h2>
-
+    <div class="container">
+    <div class="logo-container">
+      <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <rect x="0" y="0" width="400" height="95" fill="#FFDE00"/>
+        
+        <rect x="0" y="95" width="400" height="55" fill="#00A88F"/>
+        
+        <text x="200" y="65" font-family="'Poppins', 'Arial Black', sans-serif" font-size="50" font-weight="900" fill="#000000" text-anchor="middle" letter-spacing="-1">keeta</text>
+        
+        <text x="200" y="130" font-family="'Poppins', sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">Swap Tool</text>
+      </svg>
+    </div>
     <div class="swap-box">
       <h3>Agent 1</h3>
       <label for="ccms1">Enter CCMS</label>
@@ -407,7 +429,6 @@
 "6210205": { "name": "Youssef Sallam Mohamed Sallam Soliman", "email": "youssef-sallam.mohamed@eg.teleperformance.com", "lob": "C-side Chat", "country": "Qatar" },
 "6047719": { "name": "Mohannad Ahmed Ezzat Ali Yehia Elbeblawy", "email": "mohannad-ahmed.ezzat@eg.teleperformance.com", "lob": "C-side Chat", "country": "Qatar" },
 "6207191": { "name": "Mai Mostafa Hamed Mohamed Elsayed", "email": "mai-mostafa.hamed@eg.teleperformance.com", "lob": "C-side Chat", "country": "Qatar" },
-
     };
 
     function populateShifts(selectId) {
@@ -435,12 +456,12 @@
       document.getElementById("date1").value = e.target.value;
     });
 
-    // ✅ الجزء الجديد: إضافة مستمع لزر Enter على كل الحقول
+    
     const inputFields = ["ccms1", "date1", "shift1", "ccms2", "date2", "shift2"];
     inputFields.forEach(id => {
       document.getElementById(id).addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
-          event.preventDefault(); // منع السلوك الافتراضي للمتصفح
+          event.preventDefault(); 
           generateTemplate();
         }
       });
@@ -558,4 +579,3 @@
   </footer>
 </body>
 </html>
-
